@@ -38,10 +38,10 @@ import alsoAModule from "./anotherFolder/alsoAModule";
 class MyModule {
   
   // Defines a vuex state and also a getter with the same name.
-  @HasGetter firstname = "Michael";
+  @HasGetter firstname = "John";
   
   // Define a vuex state.
-  lastname = "ShoeLace";
+  lastname = "Doe";
 
   // Define a vuex mutation
   @Mutation changeFirstName(state, firstname) {
@@ -74,6 +74,42 @@ const myModule = extractVuexModule( MyModule )
 // It can then be exported as an object as:
 export default myModule;
 ```
+
+This will output
+```
+  const myModule = {
+    state: {
+      firstname: "John",
+      lastname: "Doe",
+    },
+    mutations: {
+      changeFirstName: function(state, firstname) {
+        state.firstname = firstname;
+      },
+      changeLastName: function(state, lastname) {
+        state.lastname = lastname;
+      },
+    },
+    actions: {
+      doAsync: function(context) {
+        console.log("This should be an async process")
+      },      
+    },
+    getters: {
+      firstname: function(state) {
+        return state.firstname;
+      },
+      fullname: function(state) {
+        return state.name + " " + state.lastname;
+      }      
+    },
+    modules: {
+      anotherModule,
+      alsoAModule,    
+    }
+  }
+```
+
 
 ## Advantages
    * Works well with normal vuex store.
