@@ -1,6 +1,6 @@
 {
   "name": "vuex-class-module",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "A library offering syntatic sugar to help declare vuex modules using JavaScript ES6 classes",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
