@@ -1,7 +1,15 @@
+export type VuexModule = {
+  namespaced: boolean,
+  state?: any,
+  mutations?: any,
+  actions?: any,
+  getters?: any,
+  modules?: any,
+}
+
 const store:any = {}
 
 export function VuexClass(options:{ modules: {} }) {
-  console.log( options.modules );
   return function ( target:any ) {
     const ModuleClass = target
     const name = getNameFromClass( ModuleClass );
@@ -51,9 +59,6 @@ export function extractVuexModule( ModuleClass:any ): VuexModule {
   const name = ModuleClass.name;
   return store[ name ];
 }
-
-
-
 
 function assignState( ModuleClass:any, moduleName?:string ) {
   let vModule = store[ moduleName ];

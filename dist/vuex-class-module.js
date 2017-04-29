@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var store = {};
 function VuexClass(options) {
-    console.log(options.modules);
     return function (target) {
         var ModuleClass = target;
         var name = getNameFromClass(ModuleClass);

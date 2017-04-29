@@ -1,3 +1,11 @@
+export declare type VuexModule = {
+    namespaced: boolean;
+    state?: any;
+    mutations?: any;
+    actions?: any;
+    getters?: any;
+    modules?: any;
+};
 export declare function VuexClass(options: {
     modules: {};
 }): (target: any) => void;
