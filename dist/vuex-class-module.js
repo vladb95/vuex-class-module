@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const store = {};
+var store = {};
 function VuexClass(options) {
     console.log(options.modules);
     return function (target) {
-        const ModuleClass = target;
-        const name = getNameFromClass(ModuleClass);
+        var ModuleClass = target;
+        var name = getNameFromClass(ModuleClass);
         if (nameIsNotFound(name)) {
             initializeStore(name);
         }
@@ -15,7 +15,7 @@ function VuexClass(options) {
 }
 exports.VuexClass = VuexClass;
 function Mutation(target, key, descriptor) {
-    const name = getNameFromTarget(target);
+    var name = getNameFromTarget(target);
     if (nameIsNotFound(name)) {
         initializeStore(name);
     }
@@ -23,7 +23,7 @@ function Mutation(target, key, descriptor) {
 }
 exports.Mutation = Mutation;
 function Action(target, key, descriptor) {
-    const name = getNameFromTarget(target);
+    var name = getNameFromTarget(target);
     if (nameIsNotFound(name)) {
         initializeStore(name);
     }
@@ -31,7 +31,7 @@ function Action(target, key, descriptor) {
 }
 exports.Action = Action;
 function Getter(target, key, descriptor) {
-    const name = getNameFromTarget(target);
+    var name = getNameFromTarget(target);
     if (nameIsNotFound(name)) {
         initializeStore(name);
     }
@@ -39,7 +39,7 @@ function Getter(target, key, descriptor) {
 }
 exports.Getter = Getter;
 function HasGetter(target, propertyKey) {
-    const name = getNameFromTarget(target);
+    var name = getNameFromTarget(target);
     if (nameIsNotFound(name)) {
         initializeStore(name);
     }
@@ -49,14 +49,14 @@ function HasGetter(target, propertyKey) {
 }
 exports.HasGetter = HasGetter;
 function extractVuexModule(ModuleClass) {
-    const name = ModuleClass.name;
+    var name = ModuleClass.name;
     return store[name];
 }
 exports.extractVuexModule = extractVuexModule;
 function assignState(ModuleClass, moduleName) {
-    let vModule = store[moduleName];
-    const classModule = new ModuleClass();
-    const allProps = Object.getOwnPropertyNames(classModule);
+    var vModule = store[moduleName];
+    var classModule = new ModuleClass();
+    var allProps = Object.getOwnPropertyNames(classModule);
     allProps.forEach(function (prop) {
         if (prop == moduleName)
             return;
@@ -67,7 +67,7 @@ function assignModules(modules, moduleName) {
     store[moduleName].modules = modules;
 }
 function initializeStore(name) {
-    const vmodule = {
+    var vmodule = {
         namespaced: true,
         state: {},
         mutations: {},

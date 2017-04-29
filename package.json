@@ -3,6 +3,7 @@
   "version": "0.0.11",
   "description": "A library offering syntatic sugar to help declare vuex modules using JavaScript ES6 classes",
   "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
