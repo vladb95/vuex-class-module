@@ -6,9 +6,9 @@ export declare type VuexModule = {
     getters?: any;
     modules?: any;
 };
-export declare function VuexClass(options: {
-    modules: {};
-}): (target: any) => void;
+export declare function VuexClass<T extends {
+    new (...args: any[]): {};
+}>(constructor: T): any;
 export declare function Mutation(target: any, key: string, descriptor: object): void;
 export declare function Action(target: any, key: string, descriptor: object): void;
 export declare function Getter(target: any, key: string, descriptor: object): void;

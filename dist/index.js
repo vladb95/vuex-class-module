@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var vuex_class_module_1 = require("./vuex-class-module");
 exports.Action = vuex_class_module_1.Action;
 exports.extractVuexModule = vuex_class_module_1.extractVuexModule;
