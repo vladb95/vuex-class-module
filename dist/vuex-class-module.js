@@ -37,6 +37,7 @@ exports.VuexClass = VuexClass;
 function Mutation(target, key, descriptor) {
     if (!target.store)
         throw "You must use VuexClass decorator";
+    console.log(target);
     target.store.mutations[key] = target[key];
 }
 exports.Mutation = Mutation;

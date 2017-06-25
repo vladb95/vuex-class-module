@@ -29,6 +29,7 @@ export function VuexClass<T extends {new(...args:any[]):{}}>(constructor: T): an
 
 export function Mutation( target:any, key:string, descriptor:object ) {
   if (!target.store) throw "You must use VuexClass decorator";
+  console.log(target);
   target.store.mutations[ key ] = target[ key ];
 }
 
