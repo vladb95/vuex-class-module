@@ -14,7 +14,7 @@ exports.VuexClass = function (target) {
     f.prototype = original.prototype;
     return f;
 };
-function State(target, key, descriptor) {
+function State(target, key) {
     if (!target.store)
         target.store = getNewModule();
     if (typeof target[key] === "function") {

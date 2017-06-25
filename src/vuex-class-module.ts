@@ -20,7 +20,7 @@ export var VuexClass = function (target) {
     return f;
 }
 
-export function State (target: any, key: string, descriptor: object) {
+export function State (target: any, key: string) {
   if (!target.store) target.store = getNewModule();
   if (typeof target[key] === "function") {
     throw "State cann't be a function";
