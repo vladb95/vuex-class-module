@@ -7,10 +7,10 @@ export type VuexModule = {
   modules?: any,
 }
 
-export function VuexClass (target) {
+export var VuexClass = function (target) {
     let original = target;
 
-    let f = (...args) => {
+    let f = function (...args) {
         original.apply(this, args);
         original.prototype.store.state = this;
         return  original.prototype.store;

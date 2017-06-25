@@ -1,21 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-function VuexClass(target) {
-    var _this = this;
+exports.VuexClass = function (target) {
     var original = target;
     var f = function () {
         var args = [];
         for (var _i = 0; _i < arguments.length; _i++) {
             args[_i] = arguments[_i];
         }
-        original.apply(_this, args);
-        original.prototype.store.state = _this;
+        original.apply(this, args);
+        original.prototype.store.state = this;
         return original.prototype.store;
     };
     f.prototype = original.prototype;
     return f;
-}
-exports.VuexClass = VuexClass;
+};
 function Mutation(target, key, descriptor) {
     if (!target.store)
         target.store = getNewModule();
