@@ -3,11 +3,8 @@
 This is a simple class that utilizes ES7 decorators to provide Syntatic Sugar which enables you declare Vuex Modules using ES6 Classes. 
 
 ## Dependencies
-
    * Vue
-
    * Vuex
-
    * ES7 Decorators
  
 
@@ -16,25 +13,19 @@ This is a simple class that utilizes ES7 decorators to provide Syntatic Sugar wh
 npm install --save-dev vuex-class-module
 ```
 
+## Updates
+* Removed global state
+* Added ability to extend classes
+* Removed implicit using, now you can use an object of class
 
 ## How to use
 
 We can first define a module class
 
 ```
-import { Mutation, Action, Getter, HasGetter, extractVuexModule, VuexClass } from "vuex-module-class";
-import anotherModule from "./anotherFolder/anotherModule";
-import alsoAModule from "./anotherFolder/alsoAModule";
+import { Mutation, Action, Getter, HasGetter, VuexClass } from "vuex-module-class";
 
-
-@VuexClass({
-  modules: {
-    anotherModule,
-    alsoAModule,
-  }
-})
-
-
+@VuexClass
 class MyModule {
   
   // Defines a vuex state and also a getter with the same name.
@@ -68,11 +59,8 @@ class MyModule {
 Since all this is just using syntatic sugar for vuex modules, we can extract this as follows.
 
 ```
-// This will return an object literal with all the appropriate vuex module definitions 
-const myModule = extractVuexModule( MyModule )
-
 // It can then be exported as an object as:
-export default myModule;
+export default new MyModule();
 ```
 
 This will output
@@ -102,10 +90,6 @@ This will output
       fullname: function(state) {
         return state.name + " " + state.lastname;
       }      
-    },
-    modules: {
-      anotherModule,
-      alsoAModule,    
     }
   }
 ```
@@ -115,5 +99,4 @@ This will output
    * Works well with normal vuex store.
 
    * Easy to read and intuitive.
-
 

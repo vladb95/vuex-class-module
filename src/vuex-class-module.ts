@@ -7,72 +7,39 @@ export type VuexModule = {
   modules?: any,
 }
 
-const store:any = {}
+export function VuexClass (target) {
+    let original = target;
 
-/*export function VuexClass(options?: { modules: {} }) {
-  return function ( target: any ) {
-    const ModuleClass = target;
-    const name = getNameFromClass( ModuleClass );
-    if( nameIsNotFound( name ) ) {
-      initializeStore( name );
+    let f = (...args) => {
+        original.apply(this, args);
+        original.prototype.store.state = this;
+        return  original.prototype.store;
     }
-    assignState( ModuleClass, name );
-    options && assignModules(options.modules, name);
-  }
-}*/
 
-export function VuexClass<T extends {new(...args:any[]):{}}>(constructor: T): any {
-    return class extends constructor {
-        store = getNewModule();
-    }
+    f.prototype = original.prototype;
+    return f;
 }
 
 export function Mutation( target:any, key:string, descriptor:object ) {
-  if (!target.store) throw "You must use VuexClass decorator";
-  console.log(target);
+  if (!target.store) target.store = getNewModule();
   target.store.mutations[ key ] = target[ key ];
 }
 
 export function Action( target:any, key:string, descriptor:object ) {
-  if (!target.store) throw "You must use VuexClass decorator";
+  if (!target.store) target.store = getNewModule();
   target.store.actions[ key ] = target[ key ];
 }
 
 export function Getter( target:any, key:string, descriptor:object) {
-  if (!target.store) throw "You must use VuexClass decorator";
+  if (!target.store) target.store = getNewModule();
   target.store.getters[ key ] = target[ key ];   
 }
 
 export function HasGetter( target:any, propertyKey:string) {
-  if (!target.store) throw "You must use VuexClass decorator";
-  target.store.getters[propertyKey] = function(state:any) {
-    return state[ propertyKey ];
-  }     
-}
-
-export function extractVuexModule( ModuleClass:any ): VuexModule {
-  const name = ModuleClass.name;
-  return store[ name ];
-}
-
-function assignState( ModuleClass: any, moduleName?: string ) {
-  let vModule = store[ moduleName ];
-  const classModule = new ModuleClass();
-  const allProps = Object.getOwnPropertyNames( classModule );
-  allProps.forEach( function( prop) {
-    if( prop == moduleName ) return;
-    vModule.state[ prop ] = classModule[ prop ];
-  })
-}
-
-function assignModules( modules:object, moduleName:string ) {
-  store[ moduleName ].modules = modules;
-}
-
-
-function initializeStore( name: string ): VuexModule {
-  store[ name ] = getNewModule();
-  return store[ name ];
+  if (!target.store) target.store = getNewModule();
+  target.store.getters[propertyKey] = (state: any) => {
+    return state[propertyKey];
+  }
 }
 
 function getNewModule (namespaced: boolean = true): VuexModule {
@@ -84,16 +51,4 @@ function getNewModule (namespaced: boolean = true): VuexModule {
     getters: {},
     modules: {},
   };
-}
-
-function getNameFromTarget( target:any ):string {
-  return target.constructor.name;
-}
-
-function getNameFromClass( Class:any ): string {
-  return Class.name;
-}
-
-function nameIsNotFound( name: string ): boolean {
-  return store[ name ] == undefined;
 }
